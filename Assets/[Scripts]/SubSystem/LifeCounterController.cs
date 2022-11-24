@@ -14,6 +14,7 @@ public class LifeCounterController : MonoBehaviour
     void Start()
     {
         lifeImage = GetComponent<Image>();
+        ResetLives();
     }
 
 

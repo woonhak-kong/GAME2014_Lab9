@@ -33,6 +33,7 @@ public class PlayerBehavior : MonoBehaviour
     public PlayerAnimationState playerAnimationState;
 
     private Rigidbody2D rigidbody;
+    private SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class PlayerBehavior : MonoBehaviour
         health = FindObjectOfType<PlayerHealth>().GetComponent<HealthBarController>();
         lifeCounter = FindObjectOfType<LifeCounterController>();
         deathPlane = FindObjectOfType<DeathPlaneController>();
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     private void Update()
@@ -54,6 +56,7 @@ public class PlayerBehavior : MonoBehaviour
             {
                 health.ResetHealth();
                 deathPlane.Respawn(gameObject);
+                soundManager.PlaySoundFX(SoundFX.DEATH);
                 // play the death sound
             }
         }
@@ -125,6 +128,7 @@ public class PlayerBehavior : MonoBehaviour
         if (isGrounded && y > verticalSensitivity)
         {
             rigidbody.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
+            soundManager.PlaySoundFX(SoundFX.JUMP);
         }
     }
 
@@ -147,6 +151,7 @@ public class PlayerBehavior : MonoBehaviour
             health.TakeDamage(20);
             if (lifeCounter.value > 0)
             {
+                soundManager.PlaySoundFX(SoundFX.HURT);
                 // todo : play the "hurt" sound
             }
             // todo: updpate life value
