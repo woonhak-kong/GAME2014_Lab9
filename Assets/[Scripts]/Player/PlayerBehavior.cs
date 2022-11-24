@@ -17,7 +17,8 @@ public class PlayerBehavior : MonoBehaviour
 
     [Header("Health System")]
     public HealthBarController health;
-    // public LifeCounter
+    public LifeCounterController lifeCounter;
+    public DeathPlaneController deathPlane;
 
 
     [Header("Controller")]
@@ -40,13 +41,26 @@ public class PlayerBehavior : MonoBehaviour
         animator = GetComponent<Animator>();
         leftJoystick = GameObject.FindObjectOfType<Joystick>();
         health = FindObjectOfType<PlayerHealth>().GetComponent<HealthBarController>();
+        lifeCounter = FindObjectOfType<LifeCounterController>();
+        deathPlane = FindObjectOfType<DeathPlaneController>();
     }
 
     private void Update()
     {
         if (health.value <= 0)
         {
-            
+            lifeCounter.LoseLife();
+            if (lifeCounter.value > 0)
+            {
+                health.ResetHealth();
+                deathPlane.Respawn(gameObject);
+                // play the death sound
+            }
+        }
+
+        if (lifeCounter.value <= 0)
+        {
+            // load the "End" Scene
         }
     }
 
@@ -131,6 +145,10 @@ public class PlayerBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             health.TakeDamage(20);
+            if (lifeCounter.value > 0)
+            {
+                // todo : play the "hurt" sound
+            }
             // todo: updpate life value
             // todo: animation
         }

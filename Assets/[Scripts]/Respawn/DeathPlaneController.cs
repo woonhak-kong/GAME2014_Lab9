@@ -13,7 +13,16 @@ public class DeathPlaneController : MonoBehaviour
         Debug.Log("Death");
         if(collision.gameObject.name == "Player")
         {
-            Respawn(collision.gameObject);
+            collision.gameObject.GetComponent<PlayerBehavior>().lifeCounter.LoseLife();
+            collision.gameObject.GetComponent<PlayerBehavior>().health.ResetHealth();
+
+            if (collision.gameObject.GetComponent<PlayerBehavior>().lifeCounter.value > 0)
+            {
+                Respawn(collision.gameObject);
+
+                // todo: play the death sound
+            }
+            
         }
     }
 
