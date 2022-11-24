@@ -15,6 +15,10 @@ public class PlayerBehavior : MonoBehaviour
     public LayerMask groundLayerMask;
     public bool isGrounded;
 
+    [Header("Health System")]
+    public HealthBarController health;
+    // public LifeCounter
+
 
     [Header("Controller")]
     public Joystick leftJoystick;
@@ -35,6 +39,15 @@ public class PlayerBehavior : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         leftJoystick = GameObject.FindObjectOfType<Joystick>();
+        health = FindObjectOfType<PlayerHealth>().GetComponent<HealthBarController>();
+    }
+
+    private void Update()
+    {
+        if (health.value <= 0)
+        {
+            
+        }
     }
 
     // Update is called once per frame
@@ -111,5 +124,16 @@ public class PlayerBehavior : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(groundPoint.position, groundRadius);
+    }
+
+    private void OnCollisionEnter2d(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            health.TakeDamage(20);
+            // todo: updpate life value
+            // todo: animation
+        }
+        
     }
 }
