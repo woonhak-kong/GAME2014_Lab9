@@ -146,8 +146,9 @@ public class PlayerBehavior : MonoBehaviour
         Gizmos.DrawWireSphere(groundPoint.position, groundRadius);
     }
 
-    private void OnCollisionEnter2d(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("Collision");
         if (other.gameObject.CompareTag("Enemy"))
         {
             health.TakeDamage(20);
@@ -159,6 +160,5 @@ public class PlayerBehavior : MonoBehaviour
             // todo: updpate life value
             // todo: animation
         }
-        
     }
 }
