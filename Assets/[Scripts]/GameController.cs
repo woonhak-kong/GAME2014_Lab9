@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
         onScreenControls = GameObject.Find("OnScreenControls");
         Debug.Log(Application.platform != RuntimePlatform.WindowsEditor);
         onScreenControls.SetActive(Application.platform != RuntimePlatform.WindowsEditor);
+
+        FindObjectOfType<SoundManager>().PlayMusic();
     }
 
 

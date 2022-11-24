@@ -20,7 +20,7 @@ public class DeathPlaneController : MonoBehaviour
             {
                 Respawn(collision.gameObject);
 
-                FindObjectOfType<SoundManager>().PlaySoundFX(SoundFX.DEATH);
+                FindObjectOfType<SoundManager>().PlaySoundFX(SoundFX.DEATH, Channel.DEATH);
                 // todo: play the death sound
             }
             

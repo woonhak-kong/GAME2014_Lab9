@@ -57,7 +57,7 @@ public class PlayerBehavior : MonoBehaviour
             {
                 health.ResetHealth();
                 deathPlane.Respawn(gameObject);
-                soundManager.PlaySoundFX(SoundFX.DEATH);
+                soundManager.PlaySoundFX(SoundFX.DEATH, Channel.DEATH);
                 // play the death sound
             }
         }
@@ -130,7 +130,7 @@ public class PlayerBehavior : MonoBehaviour
         if (isGrounded && y > verticalSensitivity)
         {
             rigidbody.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
-            soundManager.PlaySoundFX(SoundFX.JUMP);
+            soundManager.PlaySoundFX(SoundFX.JUMP, Channel.JUMP);
         }
     }
 
@@ -154,7 +154,7 @@ public class PlayerBehavior : MonoBehaviour
             health.TakeDamage(20);
             if (lifeCounter.value > 0)
             {
-                soundManager.PlaySoundFX(SoundFX.HURT);
+                soundManager.PlaySoundFX(SoundFX.HIT, Channel.HIT);
                 // todo : play the "hurt" sound
             }
             // todo: updpate life value
