@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerBehavior : MonoBehaviour
@@ -63,6 +64,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (lifeCounter.value <= 0)
         {
+            SceneManager.LoadScene("End");
             // load the "End" Scene
         }
     }

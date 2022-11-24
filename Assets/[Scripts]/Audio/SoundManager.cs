@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+public enum AudioSourceType
+{
+    SOUND_FX,
+    MUSIC
+}
+
 
 public class SoundManager : MonoBehaviour
 {
 
-    private AudioSource audioSource;
+    private List<AudioSource> audioSource;
     [SerializeField]
     private List<AudioClip> audioClips;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>().ToList();
         audioClips = new List<AudioClip>();
     }
 
@@ -36,7 +44,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundFX(SoundFX sound)
     {
-        audioSource.clip = audioClips[(int)sound];
-        audioSource.Play();
+        audioSource[(int)AudioSourceType.SOUND_FX].clip = audioClips[(int)sound];
+        audioSource[(int)AudioSourceType.SOUND_FX].Play();
     }
 }
